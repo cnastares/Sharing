@@ -1,68 +1,53 @@
-# Sharing (Deskflow + ClipSync)
+# Sharing (Universal Continuity)
 
-Una solución unificada y ligera para compartir teclado, ratón y portapapeles (de texto e imágenes) entre computadoras con **Ubuntu Linux (Wayland)** y **Windows**. 
+Una solución unificada, ligera e independiente para compartir portapapeles (de texto e imágenes) y archivos (estilo AirDrop) entre computadoras con **Ubuntu Linux (Wayland)** y **Windows**.
 
-Esta suite combina la potencia de **Deskflow** (para compartir el hardware) con **ClipSync** (un demonio ligero escrito en Python y PowerShell para sincronizar el portapapeles superando las restricciones de seguridad de Wayland en GNOME de forma 100% silenciosa).
+A diferencia de otros programas, **Sharing** es 100% independiente (no requiere Deskflow ni Mouse Without Borders), funciona de forma peer-to-peer y cuenta con **autodescubrimiento en red local** (cero configuración manual).
 
 ---
 
 ## Características
-* **Compartición de Teclado y Ratón:** Transición fluida a través de los bordes de la pantalla mediante Deskflow.
-* **Portapapeles Bidireccional (Texto e Imágenes):** Comparte textos y capturas de pantalla de forma instantánea.
-* **Compatible con Wayland:** Diseñado específicamente para funcionar bajo el servidor gráfico moderno de Ubuntu (GNOME Wayland) sin disparar alertas de seguridad del sistema ni popups molestos.
-* **Sin requerir privilegios en Windows:** El lado de Windows funciona de forma portable, sin instaladores ni permisos de administrador.
+* **Autodescubrimiento Automático (mDNS/UDP):** Los equipos se detectan automáticamente en la red local. No es necesario escribir direcciones IP.
+* **Portapapeles Bidireccional (Texto e Imágenes):** Sincroniza textos y capturas de pantalla de forma instantánea al copiar.
+* **Transferencia de Archivos (AirDrop-like):** Envía archivos con un clic. Se guardan en la carpeta de descargas de Linux o en el Escritorio de Windows, mostrando notificaciones al recibirlos.
+* **Compatible con Wayland:** Optimizado para funcionar bajo el servidor gráfico moderno de Ubuntu (GNOME Wayland) de forma 100% silenciosa y sin disparar alertas de seguridad.
+* **Portable en Windows:** El lado de Windows funciona desde una terminal de usuario sin requerir instaladores ni permisos de administrador.
 
 ---
 
-## Requisitos Previos
-
-### En Linux (Servidor):
-* **Deskflow** instalado en el sistema (disponible en los repositorios de tu distribución).
-* Python 3 instalado con soporte para Tkinter (`python3-tk`).
-* Utilidades de portapapeles de Wayland (`wl-clipboard` instalado).
-
-### En Windows (Cliente):
-* PowerShell 5.1 o superior (instalado por defecto en Windows 10/11).
-* La carpeta portable de **Deskflow** descargada.
+## Estructura del Proyecto
+* **`linux/`**: Contiene la aplicación gráfica y el lanzador de Linux.
+* **`win/`**: Contiene el script de PowerShell y el lanzador por lotes (.bat) para Windows.
 
 ---
 
-## Configuración e Instalación
+## Configuración y Uso
 
-### Lado de Linux (Ubuntu)
-El instalador creará un acceso directo en tu menú de aplicaciones llamado **"Sharing (Deskflow + ClipSync)"**.
+### En Linux (Servidor)
+El instalador creará un acceso directo en tu menú de aplicaciones llamado **"Sharing (Continuity)"**.
 
-1. Abre el menú de aplicaciones de Ubuntu y ejecuta **"Sharing (Deskflow + ClipSync)"**.
-2. En la interfaz de Deskflow, selecciona la opción **"Servidor"** (Server).
-3. Haz clic en **Configure Server...** (Configurar Servidor).
-4. Arrastra un monitor desde la esquina superior derecha y colócalo a la derecha de tu monitor central (representando la posición física de tu PC Windows).
-5. Haz doble clic en el monitor recién colocado y cámbiale el nombre a `LSTKLM290621` (el nombre de tu equipo Windows).
-6. Guarda los cambios haciendo clic en **OK** y haz clic en **Start** (Comenzar) en la pantalla principal.
+1. Abre el menú de aplicaciones de Ubuntu y ejecuta **"Sharing (Continuity)"**.
+2. Verás una ventana gráfica que muestra tu nombre de equipo y estado de búsqueda.
+3. El programa transmitirá su presencia y esperará conexiones entrantes.
 
 ---
 
-### Lado de Windows
-Para simplificar la ejecución, combinaremos el cliente de Deskflow y la sincronización de portapapeles en la misma carpeta:
+### En Windows (Cliente)
+1. Copia la carpeta `win` de este proyecto a tu computadora Windows (ej. en tu Escritorio).
+2. Haz doble clic sobre **`run_sharing.bat`**.
+3. Se abrirá una ventana de comandos que buscará automáticamente a tu equipo Linux en la red local.
+4. Una vez detectado, se conectará de inmediato y comenzará a sincronizar el portapapeles y los archivos.
 
-1. Copia la carpeta `win` de este proyecto a tu computadora Windows (puedes ubicarla en tu Escritorio).
-2. Descarga la versión **portable** (.zip) de Deskflow para Windows desde su repositorio oficial en GitHub.
-3. Descomprime el contenido del zip de Deskflow y copia el archivo `deskflow.exe` **dentro de la carpeta `win`** (donde están `clipsync.ps1` y `run_clipsync.bat`).
-4. Haz doble clic sobre **`run_clipsync.bat`**. 
-   * Esto abrirá automáticamente el cliente de Deskflow y el sincronizador de portapapeles en segundo plano.
-5. En la interfaz de Deskflow en Windows, selecciona la opción **"Cliente"** (Client), ingresa la dirección IP de tu Linux (`192.168.1.36`) en el campo correspondiente y haz clic en **Start** (Comenzar).
-6. La primera vez, acepta la huella digital de seguridad (Fingerprint SSL/TLS) de la conexión de Linux haciendo clic en **Yes/Trust**.
+---
+
+## Cómo transferir archivos
+* **De Linux a Windows:** En la ventana gráfica de Linux, haz clic en **"Enviar Archivo"**, selecciona el archivo y se guardará automáticamente en el Escritorio del equipo Windows conectado.
+* **De Windows a Linux:** (Futura extensión).
+* Al recibir cualquier archivo, el sistema te mostrará un aviso en pantalla informándote de la descarga.
 
 ---
 
 ## Puertos Utilizados
-Asegúrate de que tu red local permita la comunicación a través de los siguientes puertos:
-* **Puerto 15101 (TCP):** Utilizado por Deskflow para el movimiento del ratón y teclado.
-* **Puerto 15200 (TCP):** Utilizado por ClipSync para la transferencia segura del portapapeles de textos e imágenes.
-
----
-
-## Uso Diario
-Una vez configurado por primera vez:
-1. Inicia la aplicación en **Linux** usando el atajo de teclado o el menú de aplicaciones.
-2. Inicia el archivo **`run_clipsync.bat`** en **Windows**.
-3. ¡Desplaza el ratón hacia el borde de la pantalla para empezar a controlar Windows y compartir tu portapapeles!
+Asegúrate de que tu red local y firewalls permitan la comunicación en los siguientes puertos:
+* **Puerto 15200 (TCP):** Para la transferencia del portapapeles y archivos.
+* **Puerto 15201 (UDP):** Para el autodescubrimiento de equipos en red local.
