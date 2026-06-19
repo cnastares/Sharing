@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Sharing (Deskflow + ClipSync)
+Comment=Share mouse, keyboard and clipboard under Wayland
+Exec="/home/calif/Proyecto Linux/Sharing/linux/run_sharing.sh"
+Icon="/home/calif/Proyecto Linux/Sharing/linux/icon.png"
+Terminal=false
+Categories=Utility;
+StartupNotify=false
