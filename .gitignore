@@ -1,0 +1,17 @@
+# Ignore development source code folders
+/linux/
+/win/
+
+# Ignore python and build caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+.pytest_cache/
+
+# Ignore build directories
+/build/
+/dist/
+*.spec
+/deb_build/

@@ -15,9 +15,11 @@ A diferencia de otros programas, **Sharing** es 100% independiente (no requiere 
 
 ---
 
-## Estructura del Proyecto
-* **`linux/`**: Contiene la aplicación gráfica y el lanzador de Linux.
-* **`win/`**: Contiene el script de PowerShell y el lanzador por lotes (.bat) para Windows.
+## Estructura del Repositorio
+El repositorio en GitHub contiene únicamente los programas empaquetados listos para usar y la documentación, manteniendo el código fuente privado en local:
+* **`sharing.deb`**: Paquete instalador para Linux (Ubuntu 26.04).
+* **`sharing-windows.zip`**: Archivo portable comprimido para Windows.
+* **`README.md`**: Este manual de uso.
 
 ---
 
@@ -33,9 +35,9 @@ El instalador creará un acceso directo en tu menú de aplicaciones llamado **"S
 ---
 
 ### En Windows (Cliente)
-1. Copia la carpeta `win` de este proyecto a tu computadora Windows (ej. en tu Escritorio).
+1. Descarga y descomprime el archivo **`sharing-windows.zip`** en tu computadora Windows (ej. en tu Escritorio).
 2. Haz doble clic sobre **`run_sharing.bat`**.
-3. Se abrirá una ventana de comandos que buscará automáticamente a tu equipo Linux en la red local.
+3. Se abrirá una interfaz gráfica y una consola simulada que buscará automáticamente a tu equipo Linux en la red local.
 4. Una vez detectado, se conectará de inmediato y comenzará a sincronizar el portapapeles y los archivos.
 
 ---

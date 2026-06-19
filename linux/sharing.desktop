@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Sharing (Continuity)
-Comment=Share clipboard and files under Wayland and Windows
-Exec="/home/calif/Proyecto Linux/Sharing/linux/run_sharing.sh"
-Icon="/home/calif/Proyecto Linux/Sharing/linux/icon.png"
-Terminal=false
-Categories=Utility;
-StartupNotify=false
